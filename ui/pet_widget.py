@@ -29,11 +29,7 @@ x = 20
 y = screen_height - window_height - 35 # pet sits above nav bar on my own computer
 root.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
-### idle pet logic ###
-# use a finite state machine with probabilities
-#class pet_animation:
-#    def __init__(self):
-      
+# idle pet logic
 
 # interactive pet logic
 

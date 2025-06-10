@@ -16,7 +16,7 @@ hour=StringVar()
 minute=StringVar()
 second=StringVar()
 
-label = tk.Label(window, text="01:23:45", font=font, fg="hot pink")
+label = tk.Label(window, text="01:23:45", font=font, fg="hot pink", bg="white")
 label.grid(row=0, column=0, sticky="ew")
 label.pack()
 
