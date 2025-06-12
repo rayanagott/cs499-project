@@ -19,6 +19,7 @@ def get_greeting():
 def open_home():
     # window set-up (size, colors, font)
     window = tk.Toplevel()
+    window.title("Home")
     window.geometry("150x200")
     window.configure(bg="pink")
     window.attributes("-toolwindow", True)

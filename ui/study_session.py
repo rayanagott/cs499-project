@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import font
 from navigation import open_home
+from ui.timer import run_timer
 
 # function to open window
 def open_study():

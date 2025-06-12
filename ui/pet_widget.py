@@ -1,8 +1,11 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 
+def click_pet(event=None):
+    print("test")
+
 def open_pet():
-    root = tk.Tk()
+    root = tk.Toplevel()
     root.overrideredirect(True) # remove title bar
     root.wm_attributes("-topmost", True) # pet is always on top
     root.wm_attributes("-transparentcolor", "green") # make the background transparent (in green areas)
@@ -17,9 +20,16 @@ def open_pet():
 
     standing_left = ImageTk.PhotoImage(image) #starting 'state'
 
-    label = tk.Label(root, image = standing_left, bg="green") # keep referene to photo
-    label.image = standing_left
-    label.pack()
+    # Canvas instead of label
+    canvas = tk.Canvas(root, width=new_width, height=new_height, bg="green", highlightthickness=0)
+    canvas.pack()
+
+    # Draw image on canvas
+    canvas.create_image(0, 0, anchor="nw", image=standing_left)
+
+    # Create transparent clickable rectangle over image
+    canvas.tag_bind("click_area", "<Button-1>", click_pet)
+    canvas.create_rectangle(0, 0, new_width, new_height, outline="", fill="", tags="click_area")
 
     # corner positioning - get screen info
     screen_width = root.winfo_screenwidth()
@@ -32,5 +42,7 @@ def open_pet():
 
     # idle pet logic
 
-#    interactive pet logic
+    # interactive pet logic
 
+    root.mainloop()
+   

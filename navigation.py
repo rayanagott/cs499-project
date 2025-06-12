@@ -15,3 +15,7 @@ def open_goals():
 def open_history():
     import ui.history as history
     history.open_history()
+
+def open_pet():
+    import ui.pet_widget as pet
+    pet.open_pet()

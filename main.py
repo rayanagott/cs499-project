@@ -1,6 +1,6 @@
 import tkinter as tk
-from ui.pet_widget import open_pet
-from ui.home import open_home
+from navigation import open_home
+from navigation import open_pet
 
 open_pet()
 open_home()
