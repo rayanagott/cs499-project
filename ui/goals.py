@@ -17,7 +17,7 @@ def open_goals(window, root):
         font=new_font,
         bg="pink",
         fg="white",
-        command=lambda: open_home(root),
+        command=lambda: navigation.open_home(root),
         borderwidth=0,
         relief="flat"
     )

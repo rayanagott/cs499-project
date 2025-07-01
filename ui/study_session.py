@@ -2,18 +2,17 @@ import tkinter as tk
 from tkinter import font
 from ui.timer import run_timer
 
-def open_study(root):
+def open_study(window, root):
     import navigation 
 
-    study_session = tk.Toplevel(root)
-    study_session.geometry("150x200")
-    study_session.configure(bg="pink")
-    study_session.attributes("-toolwindow", True)
+    window.geometry("150x200")
+    window.configure(bg="pink")
+    window.attributes("-toolwindow", True)
     new_font = font.Font(family="Courier New", size=-18, weight="bold") 
 
     # buttons and labels
     back = tk.Button(
-        study_session, 
+        window, 
         text="<", 
         font=new_font, 
         bg="pink", 
@@ -22,7 +21,7 @@ def open_study(root):
         borderwidth=0, 
         relief="flat"
     )
-    label = tk.Label(study_session, text=" Study", font=new_font, bg="pink", fg="white")
+    label = tk.Label(window, text=" Study", font=new_font, bg="pink", fg="white")
     
     # layout
     back.grid(row=0, column=0)

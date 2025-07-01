@@ -17,7 +17,7 @@ def open_home(window, root):
     import navigation  
 
     # window set-up (size, colors, font)
-    window = tk.Toplevel(root)
+    #window = tk.Toplevel(root)
     window.title("Home")
     window.geometry("150x200")
     window.configure(bg="pink")

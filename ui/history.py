@@ -4,7 +4,7 @@ from tkinter import font
 # function to open window
 def open_history(window, root):
     import navigation
-    
+
     window.geometry("150x200")
     window.configure(bg="pink")
     window.attributes("-toolwindow", True)
@@ -18,7 +18,7 @@ def open_history(window, root):
         font="new_font", 
         bg="pink", 
         fg="white", 
-        command=lambda: open_home(root), 
+        command=lambda: navigation.open_home(root), 
         borderwidth=0, 
         relief="flat"
     )
