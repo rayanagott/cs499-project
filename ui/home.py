@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import font
 from datetime import datetime
+from fonts import get_font_16
 
 def get_greeting():
     time = datetime.now()
@@ -16,20 +17,18 @@ def get_greeting():
 def open_home(window, root):
     import navigation  
 
-    # window set-up (size, colors, font)
-    #window = tk.Toplevel(root)
     window.title("Home")
     window.geometry("150x200")
     window.configure(bg="pink")
     window.attributes("-toolwindow", True)
-    new_font = font.Font(family="Courier New", size=-16, weight="bold") 
+    font_16 = get_font_16()
 
     # buttons and labels
     greeting = get_greeting()
     greeting_label = tk.Label(window, text=greeting, font=("Courier New",-16, "bold"), bg="pink", fg="white")
-    study_button = tk.Button(window, text="\U0001F550  Study ", font=new_font, command=lambda: navigation.open_study(root), bg="pink", fg="white",  borderwidth=0, relief="flat")
-    goals_button = tk.Button(window, text= "\U0001F31F  Goals ", font=new_font, command=lambda: navigation.open_goals(root), bg="pink", fg="white",  borderwidth=0, relief="flat")
-    history_button = tk.Button(window, text="\U0001F4DC History", font=new_font, command=lambda: navigation.open_history(root), bg="pink", fg="white",  borderwidth=0, relief="flat")
+    study_button = tk.Button(window, text="\U0001F550  Study ", font=font_16, command=lambda: navigation.open_study(root), bg="pink", fg="white",  borderwidth=0, relief="flat")
+    goals_button = tk.Button(window, text= "\U0001F31F  Goals ", font=font_16, command=lambda: navigation.open_goals(root), bg="pink", fg="white",  borderwidth=0, relief="flat")
+    history_button = tk.Button(window, text="\U0001F4DC History", font=font_16, command=lambda: navigation.open_history(root), bg="pink", fg="white",  borderwidth=0, relief="flat")
     
     pink_line1 = tk.Frame(window, bg="hot pink", height=2, width=150)
     pink_line2 = tk.Frame(window, bg="hot pink", height=2, width=150)

@@ -4,6 +4,27 @@ from PIL import Image, ImageTk
 def click_pet(event=None):
     print("test")
 
+class PetState:
+    def __init__(self, pet):
+        self.pet = pet
+
+    def enter(self):
+        pass
+
+    def exit(self):
+        pass
+
+    def update(self):
+        pass
+
+class IdleState(PetState):
+    def enter(self):
+        self.pet.set_image("assets/stand_left.png")
+
+    def update(self):
+        # maybe switch to another state later (e.g., randomly)
+        pass
+
 def open_pet(root):
     pet_window = tk.Toplevel(root)
     pet_window.overrideredirect(True) # remove title bar

@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import font
+from fonts import get_header_font, get_font_16, get_font_14
 
 # function to open window
 def open_history(window, root):
@@ -8,14 +9,14 @@ def open_history(window, root):
     window.geometry("150x200")
     window.configure(bg="pink")
     window.attributes("-toolwindow", True)
-    
-    new_font = font.Font(family="Courier New", size=-18, weight="bold")
-    
+    header_font = get_header_font()
+    font_14 = get_font_14()
+        
      # buttons and labels
     back = tk.Button(
         window, 
         text="<", 
-        font="new_font", 
+        font=header_font, 
         bg="pink", 
         fg="white", 
         command=lambda: navigation.open_home(root), 
@@ -23,7 +24,7 @@ def open_history(window, root):
         relief="flat"
     )
     
-    label = tk.Label(window, text=" History", font=new_font, bg="pink", fg="white")
+    label = tk.Label(window, text=" History", font=header_font, bg="pink", fg="white")
     
     # layout
     back.grid(row=0, column=0)

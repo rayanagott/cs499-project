@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import font
+from fonts import get_header_font, get_font_16, get_font_14
 
 def open_goals(window, root):
     import navigation
@@ -7,14 +8,14 @@ def open_goals(window, root):
     window.geometry("150x200")
     window.configure(bg="pink")
     window.attributes("-toolwindow", True)
-
-    new_font = font.Font(family="Courier New", size=-18, weight="bold") 
+    header_font = get_header_font()
+    font_14 = get_font_14()
 
     # buttons and labels
     back = tk.Button(
         window,
         text="<",
-        font=new_font,
+        font=header_font,
         bg="pink",
         fg="white",
         command=lambda: navigation.open_home(root),
@@ -22,8 +23,10 @@ def open_goals(window, root):
         relief="flat"
     )
     
-    label = tk.Label(window, text=" Goals", font=new_font, bg="pink", fg="white")
-
+    header_label = tk.Label(window, text=" Goals", font=header_font, bg="pink", fg="white")
+    sub_label = tk.Label(window, text="  My goals", font=font_14, bg="pink", fg="white")
+    
     # layout
     back.grid(row=0, column=0)
-    label.grid(row=0, column=1)
+    header_label.grid(row=0, column=1)
+    sub_label.grid(row=2, column=1)
