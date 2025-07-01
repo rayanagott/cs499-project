@@ -4,8 +4,8 @@ from PIL import Image, ImageTk
 def click_pet(event=None):
     print("test")
 
-def open_pet():
-    pet_window = tk.Toplevel()
+def open_pet(root):
+    pet_window = tk.Toplevel(root)
     pet_window.overrideredirect(True) # remove title bar
     pet_window.wm_attributes("-topmost", True) # pet is always on top
     pet_window.wm_attributes("-transparentcolor", "green") # make the background transparent (in green areas)
@@ -38,8 +38,8 @@ def open_pet():
     y = screen_height - window_height - 35 # pet sits above nav bar on my own computer
     pet_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
-    # idle pet logic
+    # base state
 
-    # interactive pet logic
+    # all states
 
     tk.mainloop()

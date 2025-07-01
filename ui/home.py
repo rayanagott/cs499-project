@@ -1,9 +1,6 @@
 import tkinter as tk
 from tkinter import font
 from datetime import datetime
-from navigation import open_study
-from navigation import open_goals
-from navigation import open_history
 
 def get_greeting():
     time = datetime.now()
@@ -16,9 +13,11 @@ def get_greeting():
     else:
         return "Good Evening!"
 
-def open_home():
+def open_home(window, root):
+    import navigation  
+
     # window set-up (size, colors, font)
-    window = tk.Toplevel()
+    window = tk.Toplevel(root)
     window.title("Home")
     window.geometry("150x200")
     window.configure(bg="pink")
@@ -28,22 +27,22 @@ def open_home():
     # buttons and labels
     greeting = get_greeting()
     greeting_label = tk.Label(window, text=greeting, font=("Courier New",-16, "bold"), bg="pink", fg="white")
-    study_button = tk.Button(window, text="\U0001F550  Study ", font=new_font, command=open_study, bg="pink", fg="white",  borderwidth=0, relief="flat")
-    goals_button = tk.Button(window, text= "\U0001F31F  Goals ", font=new_font, command=open_goals, bg="pink", fg="white",  borderwidth=0, relief="flat")
-    history_button = tk.Button(window, text="\U0001F4DC History", font=new_font, command=open_history, bg="pink", fg="white",  borderwidth=0, relief="flat")
+    study_button = tk.Button(window, text="\U0001F550  Study ", font=new_font, command=lambda: navigation.open_study(root), bg="pink", fg="white",  borderwidth=0, relief="flat")
+    goals_button = tk.Button(window, text= "\U0001F31F  Goals ", font=new_font, command=lambda: navigation.open_goals(root), bg="pink", fg="white",  borderwidth=0, relief="flat")
+    history_button = tk.Button(window, text="\U0001F4DC History", font=new_font, command=lambda: navigation.open_history(root), bg="pink", fg="white",  borderwidth=0, relief="flat")
+    
     pink_line1 = tk.Frame(window, bg="hot pink", height=2, width=150)
     pink_line2 = tk.Frame(window, bg="hot pink", height=2, width=150)
     white_line1 = tk.Frame(window, bg="white", height=1, width=100)
     white_line2 = tk.Frame(window, bg="white", height=1, width=100)
     white_line3 = tk.Frame(window, bg="white", height=1, width=100)
 
-    # TO-DO: make window header
-    # button + label grid location
+    # layout
     pink_line1.grid(row=0, column=0, columnspan=3)
     greeting_label.grid(row=1, column=0, columnspan=3)
     pink_line2.grid(row=2, column=0, columnspan=3, pady=5)
     
-    study_button.grid(row=3, column=0,columnspan=3)
+    study_button.grid(row=3, column=0, columnspan=3)
     white_line1.grid(row=4, column=1, columnspan=1, pady=10)
     
     goals_button.grid(row=5, column=0, columnspan=3)
@@ -51,5 +50,3 @@ def open_home():
     
     history_button.grid(row=7, column=0, columnspan=3)    
     white_line3.grid(row=8, column=1, columnspan=1, pady=10)
-
-
