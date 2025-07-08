@@ -22,11 +22,23 @@ def open_goals(window, root):
         borderwidth=0,
         relief="flat"
     )
+
+    minimize = tk.Button(
+        window,
+        text="-",
+        font=header_font,
+        bg="pink",
+        fg="white",
+        command=lambda: navigation.minimize_to_tray(window),
+        borderwidth=0,
+        relief="flat"
+    )
     
     header_label = tk.Label(window, text=" Goals", font=header_font, bg="pink", fg="white")
     sub_label = tk.Label(window, text="  My goals", font=font_14, bg="pink", fg="white")
     
     # layout
     back.grid(row=0, column=0)
+    minimize.grid(row=1, column=0)
     header_label.grid(row=0, column=1)
     sub_label.grid(row=2, column=1)
