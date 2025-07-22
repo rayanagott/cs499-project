@@ -33,7 +33,7 @@ def run_timer(minutes, subject):
             seconds -= 1
             root.after(1000, tick)
         else:
-            date = datetime.now()
+            date = datetime.now().strftime("%Y-%m-%d %H:%M:%S") # change from datetime to text
             insert_study_session(subject, minutes, date)
             messagebox.showinfo("Time's up!", f"Done studying {subject}!")
             root.destroy()
