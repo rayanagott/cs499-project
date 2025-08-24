@@ -11,3 +11,10 @@ CREATE TABLE history (
     time_minutes INTEGER NOT NULL,
     date TEXT NOT NULL DEFAULT (DATE('now'))
     );
+
+-- clear data --
+DELETE FROM history;
+VACUUM;
+
+DELETE FROM goals;
+VACUUM;

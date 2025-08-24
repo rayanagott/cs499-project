@@ -20,7 +20,3 @@ def init_db():
             );
         """)
         conn.commit()
-
-if __name__ == "__main__":
-    init_db()
-    print("Database initialized.")

@@ -1,66 +1,94 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+from itertools import cycle
+import random
 
 def click_pet(event=None):
     print("test")
 
-class PetState:
-    def __init__(self, pet):
-        self.pet = pet
+class Pet:
+    def __init__(self, window, canvas, x, y, walk_animations):
+        self.window = window
+        self.canvas = canvas
+        self.x = x
+        self.y = y
+        self.direction = "right"
+        self.speed = 3
+        self.walk_animations = walk_animations
+        self.current_frame = None
+        self.image_obj = None
+        self.switch_frame()  # set initial image
 
-    def enter(self):
-        pass
+    def switch_frame(self):
+        frame = next(self.walk_animations[self.direction])
+        self.current_frame = frame
+        if self.image_obj is None:
+            self.image_obj = self.canvas.create_image(0, 0, anchor="nw", image=frame)
+        else:
+            self.canvas.itemconfig(self.image_obj, image=frame)
 
-    def exit(self):
-        pass
+    def random_walk_left(self):
+        return random.randint(10, 80)
 
-    def update(self):
-        pass
+    def random_walk_right(self):
+        return random.randint(110, 150)
+    
+    def move(self):
+        screen_width = self.window.winfo_screenwidth()
+        random_int_left = self.random_walk_left()
+        random_int_right = self.random_walk_right()
 
-class IdleState(PetState):
-    def enter(self):
-        self.pet.set_image("assets/stand_left.png")
+        if self.direction == "right":
+            self.x += self.speed
+            if self.x > random_int_right:  # right edge
+                self.direction = "left"
+        else:
+            self.x -= self.speed
+            if self.x < random_int_left:  # left edge
+                self.direction = "right"
 
-    def update(self):
-        # maybe switch to another state later (e.g., randomly)
-        pass
+        # update frame + position
+        self.switch_frame()
+        self.window.geometry(f"+{self.x}+{self.y}")
+
+        # schedule next update
+        self.window.after(200, self.move)
+
 
 def open_pet(root):
     pet_window = tk.Toplevel(root)
-    pet_window.overrideredirect(True) # remove title bar
-    pet_window.wm_attributes("-topmost", True) # pet is always on top
-    pet_window.wm_attributes("-transparentcolor", "green") # make the background transparent (in green areas)
+    pet_window.overrideredirect(True)  # remove title bar
+    pet_window.wm_attributes("-topmost", True)  # always on top
+    pet_window.wm_attributes("-transparentcolor", "green")  # transparency
 
-    image = Image.open("assets/stand_left.png").convert("RGBA")
-    scale_factor = 2.5  # re-size by 2.5
+    # walking animations
+    walk_animations = {
+        "left": cycle([
+            tk.PhotoImage(file="assets/walk_left.png"),
+            tk.PhotoImage(file="assets/walk_left1.png")
+        ]),
+        "right": cycle([
+            tk.PhotoImage(file="assets/walk_right.png"),
+            tk.PhotoImage(file="assets/walk_right1.png")
+        ])
+    }
 
-    # new dimensions
-    new_width = int(image.width * scale_factor)
-    new_height = int(image.height * scale_factor)
-    image = image.resize((new_width, new_height), Image.NEAREST)
-
-    standing_left = ImageTk.PhotoImage(image) #starting 'state'
-
-    # use canvas
-    canvas = tk.Canvas(pet_window, width=new_width, height=new_height, bg="green", highlightthickness=0)
+    # Canvas for transparent bg
+    canvas = tk.Canvas(pet_window, width=100, height=100, bg="green", highlightthickness=0)
     canvas.pack()
-    canvas.create_image(0, 0, anchor="nw", image=standing_left)
 
-    # transparent clickable rectangle over image
+    # click area
     canvas.tag_bind("click_area", "<Button-1>", click_pet)
-    canvas.create_rectangle(0, 0, new_width, new_height, outline="", fill="", tags="click_area")
+    canvas.create_rectangle(0, 0, 100, 100, outline="", fill="", tags="click_area")
 
-    # corner positioning - get screen info
-    screen_width = pet_window.winfo_screenwidth()
+    # Position near bottom
     screen_height = pet_window.winfo_screenheight()
-    window_width = standing_left.width()
-    window_height = standing_left.height()
-    x = 20
-    y = screen_height - window_height - 35 # pet sits above nav bar on my own computer
-    pet_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
+    y = screen_height - 75
 
-    # base state
+    # Create pet
+    pet = Pet(pet_window, canvas, x=20, y=y, walk_animations=walk_animations)
 
-    # all states
+    # start moving
+    pet.move()
 
     tk.mainloop()
